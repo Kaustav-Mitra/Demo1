@@ -1,0 +1,17 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "askForPassword": true,
+            "driver": "MySQL",
+            "name": "MySqlConnectionFirst",
+            "connectString": "root@127.0.0.1:3306"
+        }
+    ],
+    "DockerRun.DisableDockerrc": true
+}

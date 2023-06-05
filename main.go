@@ -23,6 +23,8 @@ type Book struct {
 
 var db *sql.DB
 
+// var books []Book
+
 // func GetBooks(w http.ResponseWriter, r *http.Request) {
 // 	w.Header().Set("Content-Type", "application/json")
 // 	json.NewEncoder(w).Encode(books)
@@ -79,7 +81,7 @@ var db *sql.DB
 
 func main() {
 
-	db, err := sql.Open("mysql", "user:password@tcp(host:port)/database")
+	db, err := sql.Open("mysql", "root:123456789@tcp(127.0.0.1:3306)/mydatabase")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -92,8 +94,8 @@ func main() {
 	}
 	log.Println("connected To the database")
 
-	// books = append(books, Book{ID: "1", Title: "Test Book 1", Author: "Test Author 1", Price: 200})
-	// books = append(books, Book{ID: "2", Title: "Test Book 2", Author: "Test Author 2", Price: 400})
+	// books = append(books, Book{ID: 1, Title: "Test Book 1", Author: "Test Author 1", Price: 200})
+	// books = append(books, Book{ID: 2, Title: "Test Book 2", Author: "Test Author 2", Price: 400})
 
 	router := mux.NewRouter()
 
@@ -104,7 +106,7 @@ func main() {
 	router.HandleFunc("/books/{id}", deleteBookHandler).Methods("DELETE")
 
 	// it is to start the http server
-	log.Println("Server Endpoint Hit and Sarted localhost:8080 use http://localhost:8000 for testing")
+	log.Println("Server Endpoint Hit and Sarted localhost:8080 use http://localhost:8080 for testing")
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
 
@@ -214,6 +216,7 @@ func getBooks() ([]Book, error) {
 
 	return books, nil
 }
+
 func getBook(bookID int) (*Book, error) {
 
 	stmt, err := db.Prepare("SELECT * FROM books WHERE id = ?")
