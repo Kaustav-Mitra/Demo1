@@ -1,0 +1,103 @@
+openapi: 3.0.3
+info:
+  title: Book Catalog API
+  version: 1.0.0
+  description: API for managing a book catalog
+servers:
+  - url: http://localhost:8080
+paths:
+  /books:
+    get:
+      summary: Retrieve all books
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+    post:
+      summary: Create a new book
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+  /books/{id}:
+    get:
+      summary: Retrieve a book by ID
+      parameters:
+        - name: id
+          in: path
+          description: Book ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '404':
+          description: Not Found
+    put:
+      summary: Update a book by ID
+      parameters:
+        - name: id
+          in: path
+          description: Book ID
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '404':
+          description: Not Found
+    delete:
+      summary: Delete a book by ID
+      parameters:
+        - name: id
+          in: path
+          description: Book ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: No Content
+components:
+  schemas:
+    Book:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        author:
+          type: string
+        price:
+          type: number
