@@ -1,0 +1,122 @@
+openapi: 3.0.0
+info:
+  title : Book API
+  description: Api to maintain book service
+  contact:
+    name: Saurav
+    url : https://github.com/sauravranapng/Rest_Api_golang
+  version: 1.0.0  
+servers: 
+  - url: http://dummy.com
+paths:
+  /books:
+    description: Books resource
+    get:
+      description: Operation to fetch books
+      
+      responses:
+          200:
+            description: Success Response
+            content: 
+              application/json: 
+                schema: 
+                  $ref: '#/components/schemas/books'
+    post:       
+      description: Add a new book
+      requestBody:
+        content:
+           application/json:
+             schema:
+               $ref: "#/components/schemas/book"
+              
+      responses: 
+        201: 
+          description: Record Successfully added
+  /book{id}:
+      description: Get book based on Path parameter
+      get:
+        parameters:
+         - in : path
+           name: id
+           required: true
+           schema : 
+            type: integer
+        responses:
+            200:
+             description : success response with parameter
+             content:
+               application/json: 
+                 schema:
+                    $ref: '#/components/schemas/book'
+      put:
+        requestBody:
+          content:
+            application/json:
+              schema:
+               $ref: "#/components/schemas/book"
+              
+        parameters:
+          - in: path
+            name: id
+            required: true
+            schema :
+              type : integer
+        responses:
+            200:
+             description : success response with parameter
+             content:
+               application/json: 
+                 schema:
+                    $ref: '#/components/schemas/book'      
+      delete:
+        parameters:
+          - in: path
+            name: id
+            required: true
+            schema :
+              type : integer
+        responses:
+            200:
+             description : success response with parameter
+             content:
+               application/json: 
+                 schema:
+                    $ref: '#/components/schemas/book'         
+              
+            
+    
+components:
+  schemas:
+    book:
+      type: object
+      properties: 
+        Book ID: 
+          type: string
+          example: a
+        Book Name: 
+          type : string
+          example: Habit of winning
+        Book Author :
+          type: string 
+          example:  Prakash Iyer 
+        Price:
+          type: integer
+          example: 300
+    books:
+      type: array
+      items:
+       properties: 
+           
+          Book ID: 
+            type: string
+            example: a
+          Book Name: 
+            type : string
+            example: Habit of winning
+          Book Author :
+            type: string 
+            example:  Prakash Iyer 
+          Price:
+            type: integer
+            example: 300
+  
